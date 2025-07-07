@@ -2,8 +2,11 @@ name: Update Meta IPs
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # هر روز ساعت 3 صبح UTC (5:30 صبح ایران)
-  workflow_dispatch:      # دکمه Manual Run در GitHub
+    - cron: '0 3 * * *'  # هر روز ساعت 3 صبح UTC (5:30 ایران)
+  workflow_dispatch:      # اجرای دستی
+
+permissions:
+  contents: write
 
 jobs:
   update:
@@ -27,5 +30,5 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git add meta-ips.txt
-        git commit -m "Update Meta IP list automatically"
+        git commit -m "Update Meta IP list automatically" || echo "No changes to commit"
         git push
