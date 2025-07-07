@@ -21,11 +21,11 @@ jobs:
 
     - name: Download JSON
       run: |
-        wget -O ip-ranges.json https://developers.facebook.com/static/docs/graph-api/ip-ranges.json
+        wget -O meta.json https://www.facebook.com/ips/meta.json
 
     - name: Extract prefixes
       run: |
-        cat ip-ranges.json | jq -r '.prefixes[] | select(.ip_prefix != null) | .ip_prefix' > meta-ips.txt
+        cat meta.json | jq -r '.prefixes[] | select(.ip_prefix != null) | .ip_prefix' > meta-ips.txt
 
     - name: Commit & Push changes
       run: |
