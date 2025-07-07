@@ -21,8 +21,8 @@ jobs:
 
     - name: Fetch Meta IP prefixes
       run: |
-        curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" -s "https://api.bgpview.io/asn/32934/prefixes" \
-        | jq -r '.data.ipv4_prefixes[]?.prefix, .data.ipv6_prefixes[]?.prefix' \
+        curl -s "https://ipinfo.io/AS32934" \
+        | jq -r '.prefixes[]' \
         > meta-ips.txt
 
     - name: Commit & Push changes
