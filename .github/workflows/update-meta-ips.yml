@@ -16,12 +16,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install tools
+    - name: Install jq
       run: sudo apt-get update && sudo apt-get install -y jq
 
     - name: Download JSON
       run: |
-        wget -O ip-ranges.json https://developers.facebook.com/static/docs/graph-api/ip-ranges/ip-ranges.json
+        wget -O ip-ranges.json https://developers.facebook.com/static/docs/graph-api/ip-ranges.json
 
     - name: Extract prefixes
       run: |
