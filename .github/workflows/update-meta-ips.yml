@@ -16,14 +16,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install jq
-      run: sudo apt-get install -y jq
+    - name: Install tools
+      run: sudo apt-get update && sudo apt-get install -y jq
 
-    - name: Fetch Meta IP prefixes
+    - name: Download JSON
       run: |
-        curl -s "https://developers.facebook.com/static/docs/graph-api/ip-ranges/ip-ranges.json" \
-        | jq -r '.prefixes[] | select(.ip_prefix != null) | .ip_prefix' \
-        > meta-ips.txt
+        wget -O ip-ranges.json https://developers.facebook.com/static/docs/graph-api/ip-ranges/ip-ranges.json
+
+    - name: Extract prefixes
+      run: |
+        cat ip-ranges.json | jq -r '.prefixes[] | select(.ip_prefix != null) | .ip_prefix' > meta-ips.txt
 
     - name: Commit & Push changes
       run: |
