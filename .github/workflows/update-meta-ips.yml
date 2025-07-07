@@ -21,7 +21,7 @@ jobs:
 
     - name: Fetch Meta IP prefixes
       run: |
-        curl -s "https://api.bgpview.io/asn/32934/prefixes" \
+        curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" -s "https://api.bgpview.io/asn/32934/prefixes" \
         | jq -r '.data.ipv4_prefixes[]?.prefix, .data.ipv6_prefixes[]?.prefix' \
         > meta-ips.txt
 
@@ -29,3 +29,6 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add meta-ips.txt
+        git commit -m "Update Meta IP list automatically" || echo "No changes to commit"
+        git push
