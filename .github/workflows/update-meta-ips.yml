@@ -21,8 +21,8 @@ jobs:
 
     - name: Fetch Meta IP prefixes
       run: |
-        curl -s "https://ipinfo.io/AS32934" \
-        | jq -r '.prefixes[]' \
+        curl -s "https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS32934" \
+        | jq -r '.data.prefixes[].prefix' \
         > meta-ips.txt
 
     - name: Commit & Push changes
